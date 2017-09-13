@@ -17,6 +17,8 @@ public class Ex2ArrayMethods {
     void program() {
         int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8};
 
+        out.println(Arrays.toString(rotate(arr1,3)));
+
         // Rotate all elements in arr k steps to the right (in a circular fashion)
         // Assume arr.length > 0. NOTE: Original array changed!
         /*rotate(arr1, 3);
@@ -61,6 +63,14 @@ public class Ex2ArrayMethods {
 
     // -------------- Methods --------------------------
 
+    private int[] rotate(int[] array, int times) {
+        int temp = array[array.length-1];
+        for (int i = 0; i < array.length; i++) {
+            temp = array[i-1];
+            array[i] = temp;
+        }
+        return array;
+    }
 
 
 }

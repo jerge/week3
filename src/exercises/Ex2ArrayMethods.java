@@ -64,10 +64,17 @@ public class Ex2ArrayMethods {
     // -------------- Methods --------------------------
 
     private int[] rotate(int[] array, int times) {
-        int temp = array[array.length-1];
-        for (int i = 0; i < array.length; i++) {
-            temp = array[i-1];
-            array[i] = temp;
+        int[] temp = new int[times];
+        int offsetEnd = array.length-times;
+
+        for (int i = offsetEnd; i < array.length; i++) {
+            temp[i-offsetEnd] = array[i];
+        }
+        for (int i = offsetEnd-1; i >= 0; i--) {
+            array[i + times] = array[i];
+        }
+        for (int i = 0; i < temp.length; i++) {
+            array[i] = temp[i];
         }
         return array;
     }

@@ -17,20 +17,19 @@ public class Ex2ArrayMethods {
     void program() {
         int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8};
 
-        out.println(Arrays.toString(rotate(arr1,3)));
+//        out.println(Arrays.toString(rotate(arr1,3)));
 
         // Rotate all elements in arr k steps to the right (in a circular fashion)
         // Assume arr.length > 0. NOTE: Original array changed!
-        /*rotate(arr1, 3);
+        rotate(arr1, 3);
         out.println(Arrays.toString(arr1).equals("[6, 7, 8, 1, 2, 3, 4, 5]"));
         rotate(arr1, 0);
         out.println(Arrays.toString(arr1).equals("[6, 7, 8, 1, 2, 3, 4, 5]"));
         rotate(arr1, arr1.length);
         out.println(Arrays.toString(arr1).equals("[6, 7, 8, 1, 2, 3, 4, 5]"));
         rotate(new int[]{1}, 3);
-        */
 
-        //int[] result = rotate(arr1, 2);  // INFO: Not possible, no return value
+        int[] result = rotate(arr1, 2);  // INFO: Not possible, no return value
 
         /*int[] r = rotate2(new int[]{1, 2, 3, 4, 5}, 2);  // Return value!
         out.println(Arrays.toString(r).equals("[4, 5, 1, 2, 3]"));
@@ -64,8 +63,12 @@ public class Ex2ArrayMethods {
     // -------------- Methods --------------------------
 
     private int[] rotate(int[] array, int times) {
-        int[] temp = new int[times];
-        int offsetEnd = array.length-times;
+        if (times % array.length == 0) {
+            return array;
+        }
+
+        int[] temp = new int[times % array.length];
+        int offsetEnd = (array.length - times)%array.length;
 
         for (int i = offsetEnd; i < array.length; i++) {
             temp[i-offsetEnd] = array[i];

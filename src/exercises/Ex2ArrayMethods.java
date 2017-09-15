@@ -3,6 +3,7 @@ package exercises;
 import java.util.Arrays;
 
 import static java.lang.System.*;
+import static java.util.Arrays.sort;
 
 /*
  *  Some harder array methods
@@ -31,11 +32,11 @@ public class Ex2ArrayMethods {
 
         int[] result = rotate(arr1, 2);  // INFO: Not possible, no return value
 
-        /*int[] r = rotate2(new int[]{1, 2, 3, 4, 5}, 2);  // Return value!
+        int[] r = rotate(new int[]{1, 2, 3, 4, 5}, 2);  // Return value!
         out.println(Arrays.toString(r).equals("[4, 5, 1, 2, 3]"));
-        r = rotate2(new int[]{1, 2, 3, 4, 5}, 5);  // Return value!
+        r = rotate(new int[]{1, 2, 3, 4, 5}, 5);  // Return value!
         out.println(Arrays.toString(r).equals("[1, 2, 3, 4, 5]"));
-        */
+
 
         int[] arr2 = {1, 2, 2, 3, 3};   // All sorted in increasing order
         int[] arr3 = {1, 2, 3, 4, 5};
@@ -44,20 +45,19 @@ public class Ex2ArrayMethods {
 
         // Remove all duplicates from arr2, ... (original unchanged, copy created)
         // NOTE: Assume arr is sorted in increasing order and > 0
-        /*
+
         out.println(Arrays.toString(removeDupl(arr2)).equals("[1, 2, 3]"));
         out.println(Arrays.toString(arr2).equals("[1, 2, 2, 3, 3]"));   // arr2 unchanged!
         out.println(Arrays.toString(removeDupl(arr3)).equals("[1, 2, 3, 4, 5]"));
         out.println(Arrays.toString(removeDupl(arr4)).equals("[1]"));
         out.println(Arrays.toString(removeDupl(arr5)).equals("[1]"));
-        */
 
         arr1 = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
         // Use fact that array is sorted to search efficiently
-        /*out.println(search(arr1, 1) == 0);
+        out.println(search(arr1, 1) == 0);
         out.println(search(arr1, 3) == 2);
         out.println(search(arr1, 8) == 7);
-        */
+
     }
 
     // -------------- Methods --------------------------
@@ -68,7 +68,7 @@ public class Ex2ArrayMethods {
         }
 
         int[] temp = new int[times % array.length];
-        int offsetEnd = (array.length - times)%array.length;
+        int offsetEnd = (array.length - times) % array.length;
 
         for (int i = offsetEnd; i < array.length; i++) {
             temp[i-offsetEnd] = array[i];
@@ -82,6 +82,50 @@ public class Ex2ArrayMethods {
         return array;
     }
 
+    public int[] removeDupl(int[] array) {
+        sort(array);
+        int uniques = 1; // Last one will always be added, to avoid ArrayOutOfBounds
+        int temp;
+
+        for (int i = 0; i < array.length-1; i++) {
+            temp = array[i];
+            if (temp != array[i+1]) {
+                uniques ++;
+            }
+        }
+
+        int[] uniqueArray = new int[uniques];
+        int index = 0;
+
+        uniqueArray[uniqueArray.length-1] = array[array.length-1];
+        for (int i = 0; i < array.length-1; i++) {
+            temp = array[i];
+            if (temp != array[i+1]) {
+                uniqueArray[index] = array[i];
+                index++;
+            }
+        }
+        return uniqueArray;
+    }
+
+    private int search(int[] array, int key) {
+        sort(array);
+        int keyIndex = -1;
+        int start = 0;
+        int end = array.length-1;
+        int middle = (end+start)/2;
+        while (keyIndex < 0 && start <= end) {
+            if (key == array[middle]) {
+                keyIndex = middle;
+            } else if (key > array[middle]) {
+                start = middle + 1;
+            } else {
+                end = middle - 1;
+            }
+            middle = (end+start)/2;
+        }
+        return keyIndex;
+    }
 
 }
 

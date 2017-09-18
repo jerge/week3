@@ -66,14 +66,35 @@ public class Ex4MedianKthSmallest {
         return array[array.length/2];
     }
 
+    private int[] removeDupl(int[] array) {
+        sort(array);
+        int uniques = 1; // Last one will always be added, to avoid ArrayOutOfBounds
+
+        for (int i = 0; i < array.length-1; i++) {
+            if (array[i] != array[i+1]) {
+                uniques ++;
+            }
+        }
+
+        int[] uniqueArray = new int[uniques];
+        int index = 0;
+
+        uniqueArray[uniqueArray.length-1] = array[array.length-1];
+        for (int i = 0; i < array.length-1; i++) {
+            if (array[i] != array[i+1]) {
+                uniqueArray[index] = array[i];
+                index += 1;
+            }
+        }
+        return uniqueArray;
+    }
+
 
 
     private int kSmallest(int[] array, int k){
         sort(array);
-//        removeDupl();
+        array = removeDupl(array);
         return array[k-1];
     }
-
-
 
 }

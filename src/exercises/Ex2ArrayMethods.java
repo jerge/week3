@@ -82,14 +82,12 @@ public class Ex2ArrayMethods {
         return array;
     }
 
-    public int[] removeDupl(int[] array) {
+    private int[] removeDupl(int[] array) {
         sort(array);
         int uniques = 1; // Last one will always be added, to avoid ArrayOutOfBounds
-        int temp;
 
         for (int i = 0; i < array.length-1; i++) {
-            temp = array[i];
-            if (temp != array[i+1]) {
+            if (array[i] != array[i+1]) {
                 uniques ++;
             }
         }
@@ -99,8 +97,7 @@ public class Ex2ArrayMethods {
 
         uniqueArray[uniqueArray.length-1] = array[array.length-1];
         for (int i = 0; i < array.length-1; i++) {
-            temp = array[i];
-            if (temp != array[i+1]) {
+            if (array[i] != array[i+1]) {
                 uniqueArray[index] = array[i];
                 index++;
             }
